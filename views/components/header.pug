@@ -1,0 +1,39 @@
+header
+    nav.nav
+        .container
+            .logo
+                a(href="#") OSC
+            #mainListDiv.main_list
+                ul.navlinks
+                    li
+                        a#nav-home(href="/") Home
+                    li
+                        a#nav-courses(href="/courses") Courses
+                    li
+                        a(href="prices.html") Prices
+                    li
+                        a(href="about.html") About
+                    li
+                        a(href="contact.html") Contact
+                    li
+                        a#nav-my-profile(href="/my-profile") My profile
+                    li
+                        a#nav-login(href="/auth/login") Login
+    section.home
+        .nav-desc
+            h1 Welcome to Oxford Summer Courses
+            p
+                | Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ipsum ratione facere animi impedit rem
+                | labore sint repellendus ipsa sapiente voluptatem aut excepturi quo itaque, ab earum cumque.
+                | Voluptatem beatae id inventore quod voluptate qui deserunt, quis placeat, tempora ex totam, dolore
+                | sequi harum eos voluptatibus animi labore officiis minus laboriosam
+
+    script.
+        $(window).scroll(function () {
+        if ($(document).scrollTop() > 50) {
+            $('.nav').addClass('affix');
+            console.log("OK");
+        } else {
+            $('.nav').removeClass('affix');
+        }
+        });

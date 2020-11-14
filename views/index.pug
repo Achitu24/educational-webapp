@@ -1,0 +1,15 @@
+doctype html
+html(lang="en")
+    head
+        include ./components/head.pug
+        style
+            include ../public/css/index.css
+
+        script
+            include ../public/js/index.js
+    body
+        include ./components/header.pug
+
+        div(style="height: 1000px")
+            include ./components/top-courses.pug 
+        

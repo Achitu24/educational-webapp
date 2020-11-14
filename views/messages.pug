@@ -1,0 +1,72 @@
+doctype html
+html(lang="en")
+    head
+        include ./components/head.pug
+        script(src="https://unpkg.com/micromodal/dist/micromodal.min.js")
+        style
+            include ../public/css/index.css
+
+        script
+            include ../public/js/messages.js
+    body
+        include ./components/header.pug
+
+        div(style="height: 1000px").container.mt-4
+            div.row
+                .col-4
+                    button#addMailingListBtn.btn.btn-danger.btn-block.btn-lg Add mailing list
+                    button#addMsgBtn.btn.btn-primary.btn-block.btn-lg Add new message
+                    .row.mx-0.mb-4
+                        button#sentMsgs.btn.btn-warning.col Sent
+                        button#recvMsgs.btn.btn-success.col Received
+                    each val in messageList
+                        .border.p-4.cursor-pointer.msg-box(onclick=`onClickMessage("${val.title}", "${val.username}", "${val.body}")`)
+                            .d-flex.justify-content-between
+                                .h4
+                                    span.mr-2 From:
+                                    span= val.username
+                                i.fas.fa-trash.h4.text-danger(onclick=`onClickDeleteMessage("${val.id}")`)
+                            .h5= val.title
+                            
+                .col.border.p-5
+                    //- afisam continutul mesajului (primul mesaj sau mesajul selectat)
+                    #msgContent
+                        if  messageList[0]
+                            form(name='view-message')
+                                .form-group.h5
+                                    label Title
+                                    input.form-control.form-control-lg(type='text' name='title' disabled=true value= messageList[0].title)
+                                .form-group.h5
+                                    label Sender
+                                    input.form-control.form-control-lg(type='text' name='username' disabled=true value= messageList[0].username)
+                                .form-group.h5
+                                    label Message
+                                    textarea.form-control.form-control-lg(rows='5' name='body' disabled=true)= messageList[0].body
+                        else
+                            .border.p-5 You have no messages                                
+                    #msgAdd.d-none
+                        form(name='form-message')
+                            .form-group.h5
+                                label(for='title-message') Title
+                                input#title-message.form-control.form-control-lg(type='text' placeholder='Your message title' name='title')
+                            .form-group.h5
+                                //- TODO: transform from input into div with clickable elements, also delete elements
+                                //- TODO: group from mailingList to have different color that normal element
+                                label(for='email') Username
+                                input#username.form-control.form-control-lg(type='text' placeholder='Username' name='username')
+                                #mailing-names.border.d-flex.p-3
+                                    each username in mailingList   
+                                        .border.p-3.mr-2.col.rounded-pill.text-center(onclick=`onClickMailingUsername("${username.name}")`)= username.name
+                            .form-group.h5
+                                label(for='message') Message
+                                textarea#message.form-control.form-control-lg(rows='5' name='body')
+                            button#sendMsg.btn.btn-primary(type='button') Send
+                    #mailingList.d-none
+                        form(name='form-mailing-list')
+                            .form-group.h5
+                                label(for='title-message') Name
+                                input#title-message.form-control.form-control-lg(type='text' placeholder='The name of the mailing list' name='name')
+                            #container-usernames.border.d-flex.p-3
+                            button#sendMailingList.btn.btn-primary(type='button') Add mailing list
+                #err-msg.text-danger
+        //- include ./components/new-message-modal.pug

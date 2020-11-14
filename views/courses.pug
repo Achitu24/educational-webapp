@@ -1,0 +1,18 @@
+doctype html
+html(lang="en")
+    head
+        include ./components/head.pug
+        style
+            include ../public/css/index.css
+
+        script
+            include ../public/js/index.js
+        style(type='text/css').
+           .mh-200 {
+                max-height: 200px;
+            }
+    body
+        include ./components/header.pug
+
+        div(style="height: 1000px")
+            include ./components/details-courses.pug     

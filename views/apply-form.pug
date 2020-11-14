@@ -1,0 +1,57 @@
+mixin formInput(label, content, disabled, inputType)
+    .form-group
+        label.h4= label
+        .input-group.input-group-lg
+            input.form-control(id= label name= label type= inputType placeholder= label disabled= disabled value= content)
+
+doctype html
+html(lang="en")
+    head
+        include ./components/head.pug
+        style
+            include ../public/css/index.css
+
+        script
+            include ../public/js/jwt.js
+            include ../public/js/apply-form.js
+    body
+        include ./components/header.pug
+        
+        div.container.mt-5(style="height: 1000px")
+            form(name='course-apply')
+                .row
+                    .col
+                        h2.mb-3 User Information
+                        +formInput('Name', user.name, true, 'text')
+                        +formInput('E-mail', user.email, true, 'email')
+                        +formInput('Phone Number', '', false, 'text')
+                        h3.mb-3 Address
+                        +formInput('Street', '', false, 'text')
+                        +formInput('Number', '', false, 'text')
+                        +formInput('City', '', false, 'text')
+                        +formInput('Postal code', '', false, 'text')
+                        +formInput('Country', '', false, 'text')
+                    .col
+                        h2.mb-3 Course Information
+                        +formInput('Domain', course.course_type, true, 'text')
+                        +formInput('Course Name', course.course_name, true, 'text')
+                        +formInput('Location', course.location, true, 'text')
+                        +formInput('Age group', course.age_group, true, 'text')
+                        +formInput('Accommodation details', course.acommodation_details, true, 'text')
+                        +formInput('Price', course.price, true, 'text')
+                        +formInput('Duration', course.duration, true, 'text')
+                        .form-group
+                            label.h4 Select available dates
+                            select#startDate.form-control(multiple='' name='selectDates')
+                                each val in course.dates
+                                    option.h5= val.start_date
+                        a.h5(href= course.course_link) See more details about this course
+                .d-flex.justify-content-center
+                    button#course-submit.btn.btn-primary.btn-lg Submit 
+                    #error.d-none
+
+
+    
+
+
+
